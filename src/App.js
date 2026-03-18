@@ -174,11 +174,13 @@ function NewFactForm({ setFacts, setShowForm }) {
             setIsUploading(false);
 
             // 4. Add the new fact to the UI: add the fact to state
-            if (!error) setFacts((facts) => [newFact, ...facts]);
+            if (!error) setFacts((facts) => [newFact[0], ...facts]);
+            console.log(newFact);
+
             // 5. Reset input fields
-            setText("");
-            setSource("");
-            setCategory("");
+            setText(" ");
+            setSource(" ");
+            setCategory(" ");
 
             // 6. Close the form
             setShowForm(false);
@@ -278,6 +280,7 @@ function FactList({ facts, setFacts }) {
 
 function Fact({ fact, setFacts }) {
     const [isUpDating, setUpDating] = useState(false);
+    const cats = CATEGORIES;
 
     async function HandleVote(voteType) {
         setUpDating(true);
@@ -307,7 +310,7 @@ function Fact({ fact, setFacts }) {
                 style={{
                     backgroundColor: CATEGORIES.find(
                         (cat) => cat.name === fact.category,
-                    ).color,
+                    )?.color,
                 }}
             >
                 {fact.category}
